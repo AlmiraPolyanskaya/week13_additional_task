@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Комментарии</title>
+    <style>
+        #comments {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        #comments div {
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .enter-comment {
+            float: left;
+        }
+
+        .chat {
+            float: right;
+            margin-right: 30vw;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Сервис комментариев со спам-фильтром</h1>
+    <section class="enter-comment">
+        <h3>Оставьте ваш комментарий</h3>
+        <div id="comments">
+            <div>
+                <label for="name">Введите ваше Имя:</label>
+                <input type="text" id="name" />
+            </div>
+            <div>
+                <label for="avatar">введите ссылку вашего аватара:</label>
+                <input type="text" id="avatar" />
+            </div>
+            <div>
+                <label for="message">Оставьте комментарий:</label>
+                <textarea id="message"></textarea>
+            </div>
+            <button onclick="addComment()">Отправить</button>
+        </div>
+    </section>
+
+    <section class="chat">
+        <h3>Чат</h3>
+        <div id="commentList"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
