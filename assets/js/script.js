@@ -10,7 +10,6 @@ function checkFormValidity() {
     const submitButton = document.getElementById('submit');
     if (
         (!document.getElementById('noCheckbox').checked && !document.getElementById('yesCheckbox').checked) ||
-        document.getElementById('name').value.trim() === '' ||
         document.getElementById('avatar').value.trim() === '' ||
         document.getElementById('message').value.trim() === ''
     ) {
@@ -26,7 +25,6 @@ function checkFormValidity() {
 window.addEventListener('load', checkFormValidity);
 document.getElementById('noCheckbox').addEventListener('change', checkFormValidity);
 document.getElementById('yesCheckbox').addEventListener('change', checkFormValidity);
-document.getElementById('name').addEventListener('input', checkFormValidity);
 document.getElementById('avatar').addEventListener('input', checkFormValidity);
 document.getElementById('message').addEventListener('input', checkFormValidity);
 
@@ -71,6 +69,9 @@ function addComment() {
     }
     else {
         let nameInput = document.getElementById("name");
+        if (nameInput.value.trim() == '') {
+            nameInput.value = 'User';
+        }
 
         let name = capitalizeName(nameInput.value);
         const avatar = avatarInput.value;
