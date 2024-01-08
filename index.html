@@ -5,60 +5,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Комментарии</title>
-    <style>
-        #comments {
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-        #comments div {
-            margin-bottom: 10px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 50%;
-        }
-
-        .enter-comment {
-            float: left;
-        }
-
-        .chat {
-            float: right;
-            margin-right: 30vw;
-        }
-    </style>
+    <link rel="stylesheet" href="./Normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/style/style.css">
 </head>
 
 <body>
     <h1>Сервис комментариев со спам-фильтром</h1>
-    <section class="enter-comment">
-        <h3>Оставьте ваш комментарий</h3>
-        <div id="comments">
-            <div>
-                <label for="name">Введите ваше Имя:</label>
-                <input type="text" id="name" />
-            </div>
-            <div>
-                <label for="avatar">введите ссылку вашего аватара:</label>
-                <input type="text" id="avatar" />
-            </div>
-            <div>
-                <label for="message">Оставьте комментарий:</label>
-                <textarea id="message"></textarea>
-            </div>
-            <button onclick="addComment()">Отправить</button>
-        </div>
-    </section>
+    <div class="container">
+        <section class="enter-comment">
+            <h3>Оставьте ваш комментарий</h3>
+            <div id="comments">
+                <div class="checkbox">
+                    <p>Показывать ваше имя?</p>
+                    <div class="yes">
+                        <input type="checkbox" id="yesCheckbox" name="choice" value="yes" onchange="updateCheckboxes(this)">
+                        <label for="yesCheckbox">Yes</label>
+                    </div>
+                    <div class=" no">
+                        <input type="checkbox" id="noCheckbox" name="choice" value="no" onchange="updateCheckboxes(this)">
+                        <label for="noCheckbox">No</label>
+                    </div>
 
-    <section class="chat">
-        <h3>Чат</h3>
-        <div id="commentList"></div>
-    </section>
+                </div>
+                <div>
+                    <label for="name">Введите ваше Имя:</label><br>
+                    <input type="text" id="name" />
+                </div><br>
+                <div>
+                    <label for="avatar">Введите ссылку вашего аватара:</label><br>
+                    <input type="text" id="avatar" />
+                </div><br>
+                <div>
+                    <label for="message">Оставьте комментарий:</label><br>
+                    <textarea id="message"></textarea>
+                </div>
+                <div id="errorMessage"></div>
+                <button id="submit" onclick="addComment()">Отправить</button>
+            </div><br>
+        </section>
 
-    <script src="script.js"></script>
+        <section class="chat">
+            <h3>Чат</h3>
+            <form action="" method=GET>
+                <input id="clear" type="submit" value="Очистить чат">
+            </form>
+            <div id="commentList"></div>
+        </section>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
