@@ -10,7 +10,6 @@ function checkFormValidity() {
     const submitButton = document.getElementById('submit');
     if (
         (!document.getElementById('noCheckbox').checked && !document.getElementById('yesCheckbox').checked) ||
-        document.getElementById('avatar').value.trim() === '' ||
         document.getElementById('message').value.trim() === ''
     ) {
         submitButton.disabled = true;
@@ -34,66 +33,101 @@ function capitalizeName(name) {
         .trim()
         .toLowerCase()
         //.replace(/\b\w/g, (char) => char.toUpperCase()); работает только с латиницей
-        .replace(/\b\p{L}/gu, (char) => char.toUpperCase()); //работает со всеми символами
+        .replace(/\b\p{L}/gu, (char) => char.toUpperCase()); //регулярное выражение, которое должно работать со всеми символами, но почему-то тут с кириллицей не работает! в конце кода console.log для демонстрации
 }
 
 function checkSpam(str) {
-    // Замена 'viagra' или 'XXX' на '***' (нечувствительна к регистру)
     return str.replace(/viagra|xxx/gi, "***");
 }
 
-function addComment() {
+function setAvatar() {
     const avatarInput = document.getElementById("avatar");
+    const avatar = avatarInput.value;
+
+    const defaultAvatars = [
+        './assets/images/1.png',
+        './assets/images/2.png',
+        './assets/images/3.png',
+        './assets/images/4.png',
+        './assets/images/5.png'
+    ];
+
+    let selectedAvatar;
+    if (avatar.trim() !== '') {
+        selectedAvatar = avatar.trim();
+    }
+    else {
+        const randomIndex = Math.floor(Math.random() * defaultAvatars.length);
+        selectedAvatar = defaultAvatars[randomIndex];
+    }
+
+    return selectedAvatar;
+}
+
+function addComment() {
     const messageInput = document.getElementById("message");
     const noCheckbox = document.getElementById('noCheckbox');
 
     if (noCheckbox.checked) {
         let name = "Name_hidden";
-        const avatar = avatarInput.value;
+        setAvatar();
+        const avatar = setAvatar();
+
         const message = checkSpam(messageInput.value);
 
         const commentDiv = document.createElement("div");
+        commentDiv.classList.add('columns');
+
         commentDiv.innerHTML = `
-          <h2>${name}</h2>
-          <img src="${avatar}" alt="Аватар">
-          <p>${new Date()}</p>
-          <p>${message}</p>
+        <img src="${avatar}" alt="Аватар">
+        <h2>${name}</h2>
+        <p>${`${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()}  ${new Date().getHours()}ч.${new Date().getMinutes()}мин.`}</p>
+        <p>${message}</p>
         `;
 
         const commentList = document.getElementById("commentList");
         commentList.appendChild(commentDiv);
 
-        nameInput = "";
-        avatarInput.value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("avatar").value = "";
         messageInput.value = "";
     }
     else {
         let nameInput = document.getElementById("name");
         if (nameInput.value.trim() == '') {
-            nameInput.value = 'User';
+            nameInput.value = 'Username';
         }
 
         let name = capitalizeName(nameInput.value);
-        const avatar = avatarInput.value;
+        setAvatar();
+        const avatar = setAvatar();
+
         const message = checkSpam(messageInput.value);
 
         const commentDiv = document.createElement("div");
+        commentDiv.classList.add('columns');
+
         commentDiv.innerHTML = `
-          <h2>${name}</h2>
-          <img src="${avatar}" alt="Аватар">
-          <p>${new Date()}</p>
-          <p>${message}</p>
+        <img src="${avatar}" alt="Аватар">
+        <h2>${name}</h2>
+        <p>${`${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()}  ${new Date().getHours()}ч.${new Date().getMinutes()}мин.`}</p>
+        <p>${message}</p>
         `;
 
         const commentList = document.getElementById("commentList");
         commentList.appendChild(commentDiv);
 
         nameInput.value = "";
-        avatarInput.value = "";
+        document.getElementById("avatar").value = "";
         messageInput.value = "";
     }
+    lastChecked.checked = false;
+    checkFormValidity();
 }
+
 
 
 console.log(capitalizeName(" аЛьмиРа пОлянскАя"));
 console.log(capitalizeName(" aLmira pOlYanskaYa"));
+
+
