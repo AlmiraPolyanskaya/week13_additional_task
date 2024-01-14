@@ -33,7 +33,7 @@ function capitalizeName(name) {
         .trim()
         .toLowerCase()
         //.replace(/\b\w/g, (char) => char.toUpperCase()); работает только с латиницей
-        .replace(/\b\p{L}/gu, (char) => char.toUpperCase()); //регулярное выражение, которое должно работать со всеми символами, но почему-то тут с кириллицей не работает! в конце кода console.log для демонстрации
+        .replace(/(^|\s)\S/, (char) => char.toUpperCase()); //регулярное выражение, которое должно работать со всеми символами, но почему-то тут с кириллицей не работает! в конце кода console.log для демонстрации
 }
 
 function checkSpam(str) {
